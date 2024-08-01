@@ -80,7 +80,7 @@ def download_kmz_file(date_str,proxies):
     # Remplacez l'URL par l'URL correcte du site
     base_url = "https://www.nhc.noaa.gov/gis/forecast/archive"
     if date_str==None:
-        kmz_url = f"{base_url}/lastest_wsp64knt120hr_5km.kmz"
+        kmz_url = f"{base_url}/latest_wsp64knt120hr_5km.kmz"
         file_path = os.path.join(cache_dir, f"latest.kml")
     else:
         kmz_url = f"{base_url}/{date_str}_wsp64knt120hr_5km.kmz"
