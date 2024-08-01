@@ -97,7 +97,7 @@ def download_kmz_file(date_str,proxies):
         with open(file_path, "wb") as f:
             f.write(kml_content.getbuffer())
     except Exception as e:
-        st.error(f"Aucune information disponible à la date choisie. Merci de choisir une autre date.",e)
+        st.error(f"Aucune information disponible à la date choisie. Merci de choisir une autre date : {e}")
         
 def render_analysis_options(proxies):
     """Fonction pour afficher les options d'analyse dans la barre latérale."""
