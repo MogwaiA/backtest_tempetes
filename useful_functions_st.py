@@ -86,19 +86,17 @@ def download_kmz_file(date_str,proxies):
         kmz_url = f"{base_url}/{date_str}_wsp64knt120hr_5km.kmz"
         file_path = os.path.join(cache_dir, f"{date_str}.kml")
     
-    
-    response = requests.get(kmz_url,proxies=proxies,verify=False)
-    response.raise_for_status()
-    kmz_content = BytesIO(response.content)
-    kml_content = dezip_kmz(response)
-    
-    # Stocker le fichier dans le cache de Streamlit
-    with open(file_path, "wb") as f:
-        f.write(kml_content.getbuffer())
-    
-
-
-
+    try:
+        response = requests.get(kmz_url,proxies=proxies,verify=False)
+        response.raise_for_status()
+        kmz_content = BytesIO(response.content)
+        kml_content = dezip_kmz(response)
+        # Stocker le fichier dans le cache de Streamlit
+        with open(file_path, "wb") as f:
+            f.write(kml_content.getbuffer())
+    except Exception as e:
+        st.error(f"Aucune information disponible à la date choisie. Merci de choisir une autre date.")
+        
 def render_analysis_options(proxies):
     """Fonction pour afficher les options d'analyse dans la barre latérale."""
     analysis_option = st.radio(
