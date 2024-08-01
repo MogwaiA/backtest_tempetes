@@ -92,8 +92,8 @@ def download_kmz_file(date_str,proxies):
         kmz_content = BytesIO(response.content)
         kml_content = dezip_kmz(response)
         # Stocker le fichier dans le cache de Streamlit
-        with open(file_path, "wb") as f:
-            f.write(kml_content.getbuffer())
+        with open(file_path, 'wb') as f:
+            f.write(kml_content)
     except Exception as e:
         st.error(f"Aucune information disponible à la date choisie. Merci de choisir une autre date : {e}")
         
