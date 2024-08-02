@@ -34,6 +34,18 @@ def main():
         cache_dir="cache"
         if choice=='Vision à une date précise':
             file_path = os.path.join(cache_dir, f"{date_str}.kml")
+             # Convert the KML to GeoDataFrame
+            with open(file_path, "r", encoding="utf-8") as f:
+                kml_data = f.read()
+            gdf = kml_to_geojson(kml_data)
+            
+            # Display the GeoDataFrame
+            st.write("GeoDataFrame:")
+            st.write(gdf)
+
+            # Optional: Display the geometry map
+            st.write("Map:")
+            st.map(gdf)
             try:
                 # Convert the KML to GeoDataFrame
                 with open(file_path, "r", encoding="utf-8") as f:
