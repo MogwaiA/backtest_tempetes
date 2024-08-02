@@ -86,16 +86,13 @@ def download_kmz_file(date_str,proxies):
         kmz_url = f"{base_url}/{date_str}_wsp64knt120hr_5km.kmz"
         file_path = os.path.join(cache_dir, f"{date_str}.kml")
 
-    try:
-        response = requests.get(kmz_url,proxies=proxies,verify=False)
-        response.raise_for_status()
-        kmz_content = BytesIO(response.content)
-        kml_content = dezip_kmz(response)
-        # Stocker le fichier dans le cache de Streamlit
-        with open(file_path, 'wb') as f:
-            f.write(kml_content.encode('utf-8'))
-    except Exception as e:
-        st.error(f"Aucune information disponible à la date choisie. Merci de choisir une autre date : {e}")
+    response = requests.get(kmz_url,proxies=proxies,verify=False)
+    response.raise_for_status()
+    kmz_content = BytesIO(response.content)
+    kml_content = dezip_kmz(response)
+    # Stocker le fichier dans le cache de Streamlit
+    with open(file_path, 'wb') as f:
+        f.write(kml_content.encode('utf-8'))
         
 def render_analysis_options(proxies):
     """Fonction pour afficher les options d'analyse dans la barre latérale."""
@@ -107,8 +104,8 @@ def render_analysis_options(proxies):
         try:
             download_kmz_file(None,proxies)
             st.success(f"Fichier KML a téléchargé avec succès et stocké dans le cache.")
-        except:
-            st.error(f"Erreur lors du téléchargement du fichier d'informations de la tempête. Merci de réessayer ultérieurement.")
+        except Exception as e::
+            st.error(f"Erreur lors du téléchargement du fichier d'informations de la tempête. Merci de réessayer ultérieurement\ne.")
     
     elif analysis_option == 'Vision à une date précise':
         date_selected = st.date_input("Choisissez une date", value=date.today())
@@ -117,8 +114,8 @@ def render_analysis_options(proxies):
         try:
             download_kmz_file(datetime,proxies)
             st.success(f"Fichier KML pour {datetime} téléchargé avec succès et stocké dans le cache.")
-        except:
-            st.error(f"Erreur lors du téléchargement du fichier d'informations de la tempête. Merci de réessayer.")
+        except Exception as e::
+            st.error(f"Erreur lors du téléchargement du fichier d'informations de la tempête. Merci de réessayer\ne.")
         st.write(f"Date sélectionnée : {date_selected}, {hour_selected}")
 
     elif analysis_option == 'Sélection d\'un intervalle de dates':
