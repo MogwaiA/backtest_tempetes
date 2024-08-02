@@ -104,7 +104,11 @@ def render_analysis_options(proxies):
         ('Temps réel', 'Vision à une date précise', 'Sélection d\'un intervalle de dates', 'Choix d\'une tempête')
     )
     if analysis_option == 'Temps réel':
-        download_kmz_file(None,proxies)
+        try:
+            download_kmz_file(None,proxies)
+            st.success(f"Fichier KML a téléchargé avec succès et stocké dans le cache.")
+        except:
+            st.error(f"Erreur lors du téléchargement du fichier d'informations de la tempête. Merci de réessayer ultérieurement.")
     
     elif analysis_option == 'Vision à une date précise':
         date_selected = st.date_input("Choisissez une date", value=date.today())
