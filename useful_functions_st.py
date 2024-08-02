@@ -5,6 +5,7 @@ from io import BytesIO
 import zipfile
 import requests
 import os
+from functions_backtest import *
 
 def dezip_kmz(response):
     try:

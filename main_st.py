@@ -27,7 +27,27 @@ def main():
 
     elif option == 'Choix de la tempête':
         st.subheader("Options d'analyse")
-        render_analysis_options(proxies)
+        choice=render_analysis_options(proxies)
+
+    cache_dir="cache"
+    if choice=='Vision à une date précise':
+        file_path = os.path.join(cache_dir, f"{date_str}.kml")
+        try:
+            # Convert the KML to GeoDataFrame
+            gdf = kml_to_geojson(kml_data)
+            
+            # Display the GeoDataFrame
+            st.write("GeoDataFrame:")
+            st.write(gdf)
+
+            # Optional: Display the geometry map
+            st.write("Map:")
+            st.map(gdf)
+
+        except Exception as e:
+            st.error(f"Error processing the KML file: {e}")
+    
+    
 
 if __name__ == "__main__":
     main()
