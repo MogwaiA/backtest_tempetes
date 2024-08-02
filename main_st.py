@@ -36,6 +36,8 @@ def main():
             file_path = os.path.join(cache_dir, f"{date_str}.kml")
             try:
                 # Convert the KML to GeoDataFrame
+                with open(file_path, "r", encoding="utf-8") as f:
+                    kml_data = f.read()
                 gdf = kml_to_geojson(kml_data)
                 
                 # Display the GeoDataFrame
