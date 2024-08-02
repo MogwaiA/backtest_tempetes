@@ -30,7 +30,7 @@ def main():
         choice=render_analysis_options(proxies)
 
     cache_dir="cache"
-    if choice='Vision à une date précise':
+    if choice=='Vision à une date précise':
         file_path = os.path.join(cache_dir, f"{date_str}.kml")
         try:
             # Convert the KML to GeoDataFrame
