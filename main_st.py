@@ -3,10 +3,7 @@ from useful_functions_st import *
 
 def main():
 
-    proxies = {
-        'http': f'http://@inetproxy:83',
-        'https': f'http://@inetproxy:83'
-    }
+    proxies = None
     
     """Fonction principale pour exécuter l'application."""
     st.title("Backtesting tempêtes tropicales")
