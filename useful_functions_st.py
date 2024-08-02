@@ -105,7 +105,7 @@ def render_analysis_options(proxies):
             download_kmz_file(None,proxies)
             st.success(f"Fichier KML a téléchargé avec succès et stocké dans le cache.")
         except Exception as e:
-            st.error(f"Erreur lors du téléchargement du fichier d'informations de la tempête. Merci de réessayer ultérieurement\ne.")
+            st.error(f"Erreur lors du téléchargement du fichier d'informations de la tempête. Merci de réessayer ultérieurement\n{e}.")
     
     elif analysis_option == 'Vision à une date précise':
         date_selected = st.date_input("Choisissez une date", value=date.today())
@@ -115,7 +115,7 @@ def render_analysis_options(proxies):
             download_kmz_file(datetime,proxies)
             st.success(f"Fichier KML pour {datetime} téléchargé avec succès et stocké dans le cache.")
         except Exception as e:
-            st.error(f"Erreur lors du téléchargement du fichier d'informations de la tempête. Merci de réessayer\ne.")
+            st.error(f"Erreur lors du téléchargement du fichier d'informations de la tempête. Merci de réessayer\n{e}.")
         st.write(f"Date sélectionnée : {date_selected}, {hour_selected}")
 
     elif analysis_option == 'Sélection d\'un intervalle de dates':
