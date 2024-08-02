@@ -85,13 +85,7 @@ def download_kmz_file(date_str,proxies):
     else:
         kmz_url = f"{base_url}/{date_str}_wsp64knt120hr_5km.kmz"
         file_path = os.path.join(cache_dir, f"{date_str}.kml")
-    response = requests.get(kmz_url,proxies=proxies,verify=False)
-    response.raise_for_status()
-    kmz_content = BytesIO(response.content)
-    kml_content = dezip_kmz(response)
-    # Stocker le fichier dans le cache de Streamlit
-    with open(file_path, 'wb') as f:
-        f.write(kml_content.encode('utf-8'))
+
     try:
         response = requests.get(kmz_url,proxies=proxies,verify=False)
         response.raise_for_status()
