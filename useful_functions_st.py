@@ -104,6 +104,7 @@ def render_analysis_options(proxies):
     if analysis_option == 'Temps réel':
         try:
             download_kmz_file(None,proxies)
+            datetime=None
             st.success(f"Fichier KML a téléchargé avec succès et stocké dans le cache.")
         except Exception as e:
             st.error(f"Erreur lors du téléchargement du fichier d'informations de la tempête. Merci de réessayer ultérieurement\n{e}.")
@@ -131,4 +132,4 @@ def render_analysis_options(proxies):
         storm_selected = st.selectbox("Choisissez une tempête", ['IRMA', 'MARIA', 'HARVEY', 'BERYL'])
         st.write(f"Tempête sélectionnée: {storm_selected}")
 
-    return analysis_option
+    return analysis_option,datetime
