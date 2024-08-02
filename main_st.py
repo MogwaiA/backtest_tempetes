@@ -27,7 +27,9 @@ def main():
 
     elif option == 'Choix de la tempête':
         st.subheader("Options d'analyse")
-        choice=render_analysis_options(proxies)
+        option=render_analysis_options(proxies)
+        choice=option[0]
+        date_str=option[1]
 
         cache_dir="cache"
         if choice=='Vision à une date précise':
