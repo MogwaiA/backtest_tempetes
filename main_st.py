@@ -13,7 +13,9 @@ def main():
        
 
     if option == 'Charger les données':
-
+        if "df_client_sites" not in st.session_state:
+            st.session_state.df_client_sites = None
+            
         template_path = "template.xlsx"  # Remplacez par le chemin réel de votre fichier template
         download_template(template_path)
         
@@ -24,13 +26,14 @@ def main():
         
         if file is not None:
             # Charger les données dans un DataFrame et le mettre en cache
-            df_client_sites = load_data(file)
-            
-            # Afficher le DataFrame
-            st.dataframe(df_client_sites)
+            st.session_state.df_client_sites = load_data(file)
 
         else:
             st.warning("Veuillez télécharger un fichier Excel pour continuer.")
+        
+        # Si le DataFrame est chargé, l'afficher
+        if st.session_state.df_client_sites is not None:
+            st.dataframe(st.session_state.df_client_sites)
 
     elif option == 'Choix de la tempête':
         st.subheader("Options d'analyse")
@@ -44,7 +47,7 @@ def main():
             with open(file_path, "r", encoding="utf-8") as f:
                     kml_data = f.read()
             gdf = kml_to_geojson(file_path)
-            df_compar_expositions = points_in_polygons_(df_client_sites, gdf)
+            df_compar_expositions = points_in_polygons_(st.session_state.df_client_sites, gdf)
 
     
 
