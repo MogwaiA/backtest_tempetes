@@ -10,3 +10,4 @@ matplotlib
 bs4
 openpyxl
 lxml
+shapely
