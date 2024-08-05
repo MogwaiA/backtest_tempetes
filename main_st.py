@@ -47,7 +47,23 @@ def main():
             with open(file_path, "r", encoding="utf-8") as f:
                     kml_data = f.read()
             gdf = kml_to_geojson(file_path)
-            df_compar_expositions = points_in_polygons_(st.session_state.df_client_sites, gdf)
+            #df_compar_expositions = points_in_polygons_(st.session_state.df_client_sites, gdf)
+
+            points_in_polygons = []
+            geometry_points = [Point(xy) for xy in zip(st.session_state.df_client_sites['LON'], st.session_state.df_client_sites['LAT'])]
+            gdf_points = gpd.GeoDataFrame(st.session_state.df_client_sites, geometry=geometry_points)
+            for point in gdf_points.iterrows():
+                for poly in gdf.iterrows():
+                    if point[1]['geometry'].within(poly[1]['Geometry']):
+                        point_data = point[1].copy()  # Copier les données du point
+                        point_data['POLYGON_AREA'] = poly[1]['Name']  # Ajouter la valeur 'Name' du polygone
+                        point_data['LEVEL']=poly[1]['level']
+                        points_in_polygons.append(point_data)
+        
+            result_df = gpd.GeoDataFrame(points_in_polygons)
+            st.dataframe(result_df)
+    
+            
 
     
 
