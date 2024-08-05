@@ -38,11 +38,6 @@ def main():
                     kml_data = f.read()
             gdf = kml_to_geojson(kml_data)
 
-                
-    
-            except Exception as e:
-                st.error(f"Error processing the KML file: {e}")
-    
     
 
 if __name__ == "__main__":
