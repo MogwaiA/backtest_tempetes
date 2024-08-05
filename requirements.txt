@@ -8,3 +8,5 @@ geopandas
 seaborn
 matplotlib
 bs4
+openpyxl
+lxml
