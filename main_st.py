@@ -36,7 +36,7 @@ def main():
             file_path = os.path.join(cache_dir, f"{date_str}.kml")
             with open(file_path, "r", encoding="utf-8") as f:
                     kml_data = f.read()
-            gdf = kml_to_geojson(kml_data)
+            gdf = kml_to_geojson(file_path)
 
     
 
