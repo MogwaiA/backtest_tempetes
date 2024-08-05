@@ -29,8 +29,6 @@ def main():
             # Afficher le DataFrame
             st.dataframe(df_client_sites)
 
-        if uploaded_file:
-            display_excel_content(file)
         else:
             st.warning("Veuillez télécharger un fichier Excel pour continuer.")
 
