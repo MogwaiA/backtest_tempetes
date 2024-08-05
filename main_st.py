@@ -18,10 +18,10 @@ def main():
         download_template(template_path)
         
         st.subheader("Charger un fichier Excel")
-        uploaded_file = file_uploader()
+        df_client_sites = file_uploader()
 
         if uploaded_file:
-            display_excel_content(uploaded_file)
+            display_excel_content(df_client_sites)
         else:
             st.warning("Veuillez télécharger un fichier Excel pour continuer.")
 
@@ -37,6 +37,7 @@ def main():
             with open(file_path, "r", encoding="utf-8") as f:
                     kml_data = f.read()
             gdf = kml_to_geojson(file_path)
+            df_compar_expositions = points_in_polygons_(df_client_sites, gdf)
 
     
 
