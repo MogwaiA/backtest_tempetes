@@ -18,7 +18,19 @@ def main():
         download_template(template_path)
         
         st.subheader("Charger un fichier Excel")
-        df_client_sites = file_uploader()
+
+        # Télécharger le fichier
+        uploaded_file = st.file_uploader("Choisissez un fichier Excel", type=["xlsx", "xls"])
+        
+        # Vérifiez si un fichier a été téléchargé
+        if uploaded_file is not None:
+            # Lisez le fichier Excel dans un DataFrame
+            df_client_sites = pd.read_excel(uploaded_file)
+            
+            # Affichez le DataFrame
+            st.write(df_client_sites)
+        else:
+            st.write("Veuillez télécharger un fichier Excel.")
 
         if uploaded_file:
             display_excel_content(df_client_sites)
