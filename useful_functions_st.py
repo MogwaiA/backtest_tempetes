@@ -7,6 +7,10 @@ import requests
 import os
 from functions_backtest import *
 
+@st.cache_data
+def load_data(file):
+    return pd.read_excel(file)
+
 def dezip_kmz(response):
     try:
         kmz = zipfile.ZipFile(BytesIO(response.content))
