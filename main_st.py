@@ -19,21 +19,18 @@ def main():
         
         st.subheader("Charger un fichier Excel")
 
-        # Télécharger le fichier
-        uploaded_file = st.file_uploader("Choisissez un fichier Excel", type=["xlsx", "xls"])
+        # Fonction pour uploader le fichier
+        file = st.file_uploader("Choisissez un fichier Excel", type=["xlsx", "xls"])
         
-        # Vérifiez si un fichier a été téléchargé
-        if uploaded_file is not None:
-            # Lisez le fichier Excel dans un DataFrame
-            df_client_sites = pd.read_excel(uploaded_file)
+        if file is not None:
+            # Charger les données dans un DataFrame et le mettre en cache
+            df_client_sites = load_data(file)
             
-            # Affichez le DataFrame
-            st.write(df_client_sites)
-        else:
-            st.write("Veuillez télécharger un fichier Excel.")
+            # Afficher le DataFrame
+            st.dataframe(df_client_sites)
 
         if uploaded_file:
-            display_excel_content(df_client_sites)
+            display_excel_content(file)
         else:
             st.warning("Veuillez télécharger un fichier Excel pour continuer.")
 
