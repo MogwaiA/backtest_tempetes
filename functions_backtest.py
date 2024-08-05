@@ -1,10 +1,7 @@
 from bs4 import BeautifulSoup
 import geopandas as gpd
-from shapely.geometry import Point
-
-from shapely.geometry import MultiPolygon
+from shapely.geometry import MultiPolygon,Point,Polygon
 import pandas as pd 
-from shapely.geometry import Polygon
 
 def kml_to_geojson(chemin_kml):
     levels = {
@@ -50,3 +47,25 @@ def kml_to_geojson(chemin_kml):
     # Return the GeoDataFrame
     return gdf
 
+def points_in_polygons_(df_points, gdf):
+    # Vérifier si les points sont à l'intérieur des polygones
+    points_in_polygons = []
+    geometry_points = [Point(xy) for xy in zip(df_points['LON'], df_points['LAT'])]
+    gdf_points = gpd.GeoDataFrame(df_points, geometry=geometry_points)
+    for point in gdf_points.iterrows():
+        for poly in gdf.iterrows():
+            if point[1]['geometry'].within(poly[1]['Geometry']):
+                point_data = point[1].copy()  # Copier les données du point
+                point_data['POLYGON_AREA'] = poly[1]['Name']  # Ajouter la valeur 'Name' du polygone
+                point_data['LEVEL']=poly[1]['level']
+                points_in_polygons.append(point_data)
+
+    result_df = gpd.GeoDataFrame(points_in_polygons)
+    
+    # Créer un DataFrame à partir des points à l'intérieur des polygones
+    result_df = result_df.sort_values(by='LEVEL', ascending=False)
+    # Supprimer les doublons en se basant sur les colonnes spécifiées
+    result_df = result_df.drop_duplicates(subset=['LOCATION', 'ENTITY', 'CITY', 'COUNTRY', 'LAT', 'LON', 'TIV'])
+    
+    result_df = result_df.drop(columns=['geometry','LEVEL'])
+    return result_df
