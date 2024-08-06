@@ -20,7 +20,7 @@ def kml_to_geojson(chemin_kml):
 
     # Read the KML file and parse it with BeautifulSoup
     with open(chemin_kml, "r", encoding="utf-8") as f:
-        kml_data = f.read()
+        kml_data = f.read().decode('utf-8')
 
     soup = BeautifulSoup(kml_data, "xml")
 
