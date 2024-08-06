@@ -97,7 +97,7 @@ def download_kmz_file(date_str,proxies):
     kml_content = dezip_kmz(response)
     # Stocker le fichier dans le cache de Streamlit
     with open(file_path, 'wb') as f:
-        f.write(kml_content.encode('utf-8'))
+        f.write(kml_content)
         
 def render_analysis_options(proxies):
     """Fonction pour afficher les options d'analyse dans la barre latérale."""
